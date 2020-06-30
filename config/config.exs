@@ -13,11 +13,6 @@ use Mix.Config
 config :pdf_tool,
   ecto_repos: [PdfTool.Repo]
 
-config :kv, :routing_table, [
-  {:pdf_web, :"web@192.168.0.3"},
-  {:annotations, :"annotations@192.168.0.3"}
-]
-
 config :pdf_tool_web,
   ecto_repos: [PdfTool.Repo],
   generators: [context_app: :pdf_tool]

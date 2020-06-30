@@ -1,21 +1,26 @@
 defmodule Annotations.CreateWorker do
   @moduledoc """
-  This server helps to monitor a process and execute some action 
-  when it's terminated
+  This worker add svg annotations to a pdf
   """
   use GenServer
+  require Logger
 
   def start_link(name) do
     GenServer.start_link(__MODULE__, nil, name: {:global, name})
   end
 
-  def handle_call({:add_anotation, path}, _from, state) do
-    IO.inspect path
-    {:reply, :ok, state}
+  def init(init_arg) do
+    {:ok, init_arg}
   end
 
-  # @spec start_link(%{name: String.t(), process: pid(), on_terminate: function()}) :: any()
-  # def start_link(%{name: name} = args) do
-  #   GenServer.start_link(__MODULE__, args, name: via_tuple(name))
-  # end
+  def handle_call({:add_anotation, path, annotations}, _from, state) do
+    Logger.info(path)
+    Logger.info(annotations)
+    Logger.info(pid_to_string(self()))
+    {:reply, "https://pdf_tool/sw/annotaded.pdf", state}
+  end
+
+  defp pid_to_string(pid) do
+    "#{inspect pid}"
+  end
 end
